@@ -1,4 +1,5 @@
 import { Flex, Spacing } from "@toss/emotion-utils";
+import FixedBottomCTA from "../components/FixedBottomCTA";
 import Txt from "../components/Txt";
 import { Logo } from "../icons";
 
@@ -17,6 +18,7 @@ function Home() {
         </Txt>
       </Flex>
       <Spacing size={42} />
+      <FixedBottomCTA>중간지점 찾기</FixedBottomCTA>
     </>
   );
 }
