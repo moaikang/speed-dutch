@@ -4,6 +4,7 @@ import { addressSearchListAtom } from '../atoms/search';
 import AddressAddButton from '../components/AddressAddButton';
 import AddressSearchInput from '../components/AddressSearchInput';
 import FixedBottomCTA from '../components/FixedBottomCTA';
+import SearchBar from '../components/SearchBar';
 import Txt from '../components/Txt';
 import { Logo } from '../icons';
 
@@ -34,7 +35,9 @@ function Home() {
           />
         ))}
         <AddressAddButton />
+        <SearchBar />
       </Stack>
+
       <FixedBottomCTA disabled>중간지점 찾기</FixedBottomCTA>
     </>
   );
