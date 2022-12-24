@@ -1,6 +1,7 @@
 import { Flex, Spacing, Stack } from '@toss/emotion-utils';
 import { useRecoilState } from 'recoil';
 import { addressSearchListAtom } from '../atoms/search';
+import AddressAddButton from '../components/AddressAddButton';
 import AddressSearchInput from '../components/AddressSearchInput';
 import FixedBottomCTA from '../components/FixedBottomCTA';
 import Txt from '../components/Txt';
@@ -32,6 +33,7 @@ function Home() {
             placeholder="위치를 입력해주세요"
           />
         ))}
+        <AddressAddButton />
       </Stack>
       <FixedBottomCTA disabled>중간지점 찾기</FixedBottomCTA>
     </>
