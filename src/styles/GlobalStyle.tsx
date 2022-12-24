@@ -9,6 +9,7 @@ const globalCss = css`
   body,
   html,
   #__next {
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -75,13 +76,5 @@ const globalCss = css`
   &::-moz-focus-inner {
     border: 0;
     padding: 0;
-  }
-
-  .p-toast-container .p-toast {
-    overflow: hidden !important;
-  }
-
-  #tds-pc__portal-container > .p-dropdown {
-    max-height: 45vh !important;
   }
 `;

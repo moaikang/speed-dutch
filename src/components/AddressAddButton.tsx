@@ -4,9 +4,7 @@ import { SearchInputMarker } from '../icons';
 import { COLOR } from '../themes/color';
 import Txt from './Txt';
 
-interface Props {}
-
-function AddressAddButton({}: Props) {
+function AddressAddButton() {
   return (
     <StyledButton>
       <SearchInputMarker type="plus" />
