@@ -1,33 +1,33 @@
-import styled from "@emotion/styled";
-import { ComponentProps, HTMLAttributes } from "react";
-import { match } from "ts-pattern";
-import { COLOR } from "../themes/color";
+import styled from '@emotion/styled';
+import { ComponentProps, HTMLAttributes } from 'react';
+import { match } from 'ts-pattern';
+import { COLOR } from '../themes/color';
 
 interface Props extends HTMLAttributes<HTMLSpanElement> {
-  size?: "small" | "medium" | "big";
+  size?: 'small' | 'medium' | 'big';
   color?: keyof typeof COLOR;
 }
 
-function Txt({ size = "medium", color = "WHITE", ...props }: Props) {
+function Txt({ size = 'medium', color = 'WHITE', ...props }: Props) {
   return <StyledTxt size={size} color={color} {...props} />;
 }
 
 const StyledTxt = styled.span<Props>`
-  font-size: ${(props) =>
+  font-size: ${props =>
     match(props.size)
-      .with("small", () => "12px")
-      .with("medium", () => "16px")
-      .with("big", () => "20px")
-      .otherwise(() => "16px")};
+      .with('small', () => '12px')
+      .with('medium', () => '14px')
+      .with('big', () => '20px')
+      .otherwise(() => '14px')};
 
-  font-weight: ${(props) =>
+  font-weight: ${props =>
     match(props.size)
-      .with("small", () => "normal")
-      .with("medium", () => "normal")
-      .with("big", () => "bold")
-      .otherwise(() => "normal")};
+      .with('small', () => 'normal')
+      .with('medium', () => 'normal')
+      .with('big', () => 'bold')
+      .otherwise(() => 'normal')};
 
-  color: ${(props) => props.color};
+  color: ${props => COLOR[props.color!]};
 
   text-align: center;
 

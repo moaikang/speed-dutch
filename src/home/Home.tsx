@@ -25,7 +25,12 @@ function Home() {
       <Spacing size={42} />
       <Stack gutter={16}>
         {addressSearchList.map((addressSearch, index) => (
-          <AddressSearchInput key={addressSearch} index={index} onAddressChange={() => {}} />
+          <AddressSearchInput
+            key={addressSearch}
+            index={index}
+            onAddressChange={() => {}}
+            placeholder="위치를 입력해주세요"
+          />
         ))}
       </Stack>
       <FixedBottomCTA disabled>중간지점 찾기</FixedBottomCTA>
