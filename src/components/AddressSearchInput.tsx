@@ -5,7 +5,7 @@ import { useOverlay } from '@toss/use-overlay';
 import { useState } from 'react';
 import { QUERY_KEY } from '../constants/QueryKey';
 import { useDebounce } from '../hooks/useDebounce';
-import { SearchInputMarker } from '../icons';
+import { Arrow, SearchInputMarker } from '../icons';
 import { Poi } from '../models/poi';
 import { getAddressList } from '../remotes/address-search';
 import { COLOR } from '../themes/color';
@@ -34,7 +34,7 @@ function SearchPage() {
         }}
       />
       <Spacing size={11} />
-      {장소_리스트 != null ? <SearchList poiList={장소_리스트.searchPoiInfo.pois.poi} /> : <div>ㅎㅎ</div>}
+      {장소_리스트 != null ? <SearchList poiList={장소_리스트.searchPoiInfo.pois.poi} /> : null}
     </SearchPageWrapper>
   );
 }
@@ -46,6 +46,7 @@ function SearchItem({ poi }: { poi: Poi }) {
         <Txt>{poi.name}</Txt>
         <Txt size="small">{poi.newAddressList.newAddress[0].roadName}</Txt>
       </Flex>
+      <Arrow direction="right" />
     </SearchItemWrapper>
   );
 }
@@ -113,7 +114,8 @@ export const SearchListWrapper = styled.ul`
 `;
 
 export const SearchItemWrapper = styled.li`
-  display: block;
+  display: flex;
+  justify-content: space-between;
   padding: 19px 0;
 `;
 
