@@ -1,5 +1,5 @@
-import { css, Global } from "@emotion/react";
-import { COLOR } from "../themes/color";
+import { css, Global } from '@emotion/react';
+import { COLOR } from '../themes/color';
 
 export default function GlobalStyle() {
   return <Global styles={globalCss} />;
@@ -14,7 +14,7 @@ const globalCss = css`
     margin: 0;
     padding: 0;
     font-size: 16px;
-    background-color: ${COLOR.GREY};
+    background-color: ${COLOR.GREY7};
   }
 
   body {

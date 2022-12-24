@@ -1,9 +1,13 @@
-import { Flex, Spacing } from "@toss/emotion-utils";
-import FixedBottomCTA from "../components/FixedBottomCTA";
-import Txt from "../components/Txt";
-import { Logo } from "../icons";
+import { Flex, Spacing, Stack } from '@toss/emotion-utils';
+import { useRecoilState } from 'recoil';
+import { addressSearchListAtom } from '../atoms/search';
+import FixedBottomCTA from '../components/FixedBottomCTA';
+import Txt from '../components/Txt';
+import { Logo } from '../icons';
 
 function Home() {
+  const [addressSearchList, setAddressSearchList] = useRecoilState(addressSearchListAtom);
+
   return (
     <>
       <Spacing size={42} />
@@ -18,6 +22,11 @@ function Home() {
         </Txt>
       </Flex>
       <Spacing size={42} />
+      <Stack gutter={16}>
+        {addressSearchList.map(addressSearch => (
+          <div>{addressSearch}</div>
+        ))}
+      </Stack>
       <FixedBottomCTA disabled>중간지점 찾기</FixedBottomCTA>
     </>
   );

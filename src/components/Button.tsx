@@ -12,7 +12,6 @@ function Button({ ...props }: Props) {
 const StyledButton = styled.button<Props>`
   display: block;
   width: calc(100% - 32px);
-  height: 48px;
   background: ${(props) => (props.disabled ? COLOR.LIGHT_GREY : COLOR.ORANGE)};
   border-radius: 12px;
   color: ${COLOR.WHITE};
