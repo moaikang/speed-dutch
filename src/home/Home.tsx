@@ -35,7 +35,7 @@ function Home() {
           />
         ))}
         <AddressAddButton />
-        <SearchBar />
+        <SearchBar placeholder="위치를 입력해주세요" />
       </Stack>
 
       <FixedBottomCTA disabled>중간지점 찾기</FixedBottomCTA>

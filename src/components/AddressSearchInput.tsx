@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Spacing } from '@toss/emotion-utils';
+import { useOverlay } from '@toss/use-overlay';
 import { SearchInputMarker } from '../icons';
 import { COLOR } from '../themes/color';
 import Txt from './Txt';
@@ -12,8 +13,9 @@ interface Props {
 }
 
 function AddressSearchInput({ onAddressChange, index, disabled = false, placeholder }: Props) {
+  const a = useOverlay();
   return (
-    <StyledButton>
+    <StyledButton onClick={() => {}}>
       <SearchInputMarker index={index} disabled={disabled} />
       <MarginTxt color="GREY3">{placeholder}</MarginTxt>
     </StyledButton>
