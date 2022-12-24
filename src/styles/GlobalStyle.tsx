@@ -17,6 +17,10 @@ const globalCss = css`
     background-color: ${COLOR.GREY};
   }
 
+  body {
+    padding: 0 16px;
+  }
+
   a {
     text-decoration: none;
   }

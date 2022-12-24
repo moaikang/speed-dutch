@@ -18,7 +18,7 @@ function Home() {
         </Txt>
       </Flex>
       <Spacing size={42} />
-      <FixedBottomCTA>중간지점 찾기</FixedBottomCTA>
+      <FixedBottomCTA disabled>중간지점 찾기</FixedBottomCTA>
     </>
   );
 }

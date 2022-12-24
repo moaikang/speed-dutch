@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import React, { ReactNode } from "react";
+import React, { ComponentProps, ReactNode } from "react";
 import Button from "./Button";
 
-type Props = {
+interface Props extends ComponentProps<typeof Button> {
   children: ReactNode;
-};
+}
 
 const FixedBottomCTA = ({ children, ...props }: Props) => {
   return (
@@ -16,10 +16,10 @@ const FixedBottomCTA = ({ children, ...props }: Props) => {
 
 const Wrapper = styled.div`
   position: fixed;
-  left: 0;
+  left: 16px;
   bottom: 0;
-  width: 100vw;
-  padding: 0 16px 24px 16px;
+  width: 100%;
+  padding: 0 0 24px 0;
 `;
 
 export default FixedBottomCTA;
