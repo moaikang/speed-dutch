@@ -13,6 +13,7 @@ function Txt({ size = 'medium', color = 'WHITE', ...props }: Props) {
 }
 
 const StyledTxt = styled.span<Props>`
+  width: fit-content;
   font-size: ${props =>
     match(props.size)
       .with('small', () => '12px')
@@ -31,7 +32,12 @@ const StyledTxt = styled.span<Props>`
 
   text-align: center;
 
-  line-height: 28px;
+  line-height: ${props =>
+    match(props.size)
+      .with('small', () => '14px')
+      .with('medium', () => '14px')
+      .with('big', () => '28px')
+      .otherwise(() => '14px')};
 `;
 
 export default Txt;

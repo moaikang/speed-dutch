@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { Flex, Spacing, Stack } from '@toss/emotion-utils';
 import { useOverlay } from '@toss/use-overlay';
 import { useState } from 'react';
 import { QUERY_KEY } from '../constants/QueryKey';
@@ -32,18 +33,30 @@ function SearchPage() {
           장소_검색하기_디바운스();
         }}
       />
+      <Spacing size={11} />
       {장소_리스트 != null ? <SearchList poiList={장소_리스트.searchPoiInfo.pois.poi} /> : <div>ㅎㅎ</div>}
     </SearchPageWrapper>
   );
 }
 
+function SearchItem({ poi }: { poi: Poi }) {
+  return (
+    <SearchItemWrapper>
+      <Flex direction="column" style={{ gap: '6px' }}>
+        <Txt>{poi.name}</Txt>
+        <Txt size="small">{poi.newAddressList.newAddress[0].roadName}</Txt>
+      </Flex>
+    </SearchItemWrapper>
+  );
+}
+
 function SearchList({ poiList }: { poiList: Poi[] }) {
   return (
-    <>
+    <SearchListWrapper>
       {poiList.map(poiItem => (
-        <div key={poiItem.id}>{poiItem.name}</div>
+        <SearchItem key={poiItem.id} poi={poiItem} />
       ))}
-    </>
+    </SearchListWrapper>
   );
 }
 
@@ -92,6 +105,16 @@ const StyledButton = styled.button`
   padding: 12px;
   background-color: ${COLOR.WHITE};
   border-radius: 12px;
+`;
+
+export const SearchListWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SearchItemWrapper = styled.li`
+  display: block;
+  padding: 19px 0;
 `;
 
 export const MarginTxt = styled(Txt)`
