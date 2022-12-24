@@ -15,10 +15,6 @@ const globalCss = css`
     padding: 0;
     font-size: 16px;
     background-color: ${COLOR.GREY};
-    font-family: Toss Product Sans, -apple-system, BlinkMacSystemFont,
-      Bazier Square, Noto Sans KR, Segoe UI, Apple SD Gothic Neo, Roboto,
-      Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-      Segoe UI Symbol, Noto Color Emoji !important;
   }
 
   a {
