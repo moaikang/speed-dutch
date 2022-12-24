@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import React, { ComponentProps, ReactNode } from "react";
-import Button from "./Button";
+import styled from '@emotion/styled';
+import React, { ComponentProps, ReactNode } from 'react';
+import Button from './Button';
 
 interface Props extends ComponentProps<typeof Button> {
   children: ReactNode;
@@ -20,6 +20,7 @@ const Wrapper = styled.div`
   bottom: 0;
   width: 100%;
   padding: 0 0 24px 0;
+  font-size: 16px;
 `;
 
 export default FixedBottomCTA;
