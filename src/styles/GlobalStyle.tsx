@@ -1,4 +1,5 @@
 import { css, Global } from "@emotion/react";
+import { COLOR } from "../themes/color";
 
 export default function GlobalStyle() {
   return <Global styles={globalCss} />;
@@ -13,7 +14,7 @@ const globalCss = css`
     margin: 0;
     padding: 0;
     font-size: 16px;
-    // FIXME(지혜): App.tsx 에서 import하는 antd.css의 font-family가 우선순위 높게 적용되서 !important로 강제합니다
+    background-color: ${COLOR.GREY};
     font-family: Toss Product Sans, -apple-system, BlinkMacSystemFont,
       Bazier Square, Noto Sans KR, Segoe UI, Apple SD Gothic Neo, Roboto,
       Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
