@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const addressSearchListAtom = atom<string[]>({
-  key: "addressSearchList",
-  default: [],
+  key: 'addressSearchList',
+  default: ['1'],
 });

@@ -1,6 +1,7 @@
 import { Flex, Spacing, Stack } from '@toss/emotion-utils';
 import { useRecoilState } from 'recoil';
 import { addressSearchListAtom } from '../atoms/search';
+import AddressSearchInput from '../components/AddressSearchInput';
 import FixedBottomCTA from '../components/FixedBottomCTA';
 import Txt from '../components/Txt';
 import { Logo } from '../icons';
@@ -23,8 +24,8 @@ function Home() {
       </Flex>
       <Spacing size={42} />
       <Stack gutter={16}>
-        {addressSearchList.map(addressSearch => (
-          <div>{addressSearch}</div>
+        {addressSearchList.map((addressSearch, index) => (
+          <AddressSearchInput key={addressSearch} index={index} onAddressChange={() => {}} />
         ))}
       </Stack>
       <FixedBottomCTA disabled>중간지점 찾기</FixedBottomCTA>
