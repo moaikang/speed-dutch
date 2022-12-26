@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Script from 'next/script';
 import { useCallback, useEffect, useRef } from 'react';
 
