@@ -14,10 +14,15 @@ function SearchInputMarker({ type = 'index', index, disabled = false, color }: P
       <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M2.92886 2.91046C-0.976285 6.79279 -0.976285 13.0878 2.92886 16.9702L10 24L17.0711 16.9702C20.9763 13.0878 20.9763 6.79279 17.0711 2.91046C13.1643 -0.970153 6.83227 -0.970153 2.92886 2.91046Z"
-          fill={match({ disabled, color })
-            .with({ disabled }, () => COLOR.GREY2)
-            .with(P.not(P.nullish), () => COLOR[color!])
-            .otherwise(() => COLOR.GREY5)}
+          fill={(() => {
+            if (disabled) {
+              return COLOR.GREY2;
+            } else if (color) {
+              return COLOR[color!];
+            } else {
+              return COLOR.GREY5;
+            }
+          })()}
         />
         {match(index)
           .with(P.nullish, () => null)

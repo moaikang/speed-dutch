@@ -27,12 +27,7 @@ function Home() {
       <Spacing size={42} />
       <Stack gutter={16}>
         {addressSearchList.map((addressSearch, index) => (
-          <AddressSearchInput
-            key={addressSearch}
-            index={index}
-            onAddressChange={() => {}}
-            placeholder="위치를 입력해주세요"
-          />
+          <AddressSearchInput key={addressSearch} index={index} placeholder="위치를 입력해주세요" />
         ))}
         <AddressAddButton />
         <SearchBar placeholder="위치를 입력해주세요" />

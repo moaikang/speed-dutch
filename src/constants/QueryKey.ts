@@ -1,3 +1,3 @@
 export const QUERY_KEY = {
-  장소_검색하기: (key: string) => ['장소_검색하기', key],
+  POI_LIST: (key: string) => ['POI_LIST', key],
 } as const;

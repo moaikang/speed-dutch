@@ -1,28 +1,30 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { Flex, Spacing, Stack } from '@toss/emotion-utils';
+import { Flex, Spacing } from '@toss/emotion-utils';
 import { useOverlay } from '@toss/use-overlay';
 import { useState } from 'react';
+import { match, Pattern } from 'ts-pattern';
 import { QUERY_KEY } from '../constants/QueryKey';
 import { useDebounce } from '../hooks/useDebounce';
 import { Arrow, SearchInputMarker } from '../icons';
 import { Poi } from '../models/poi';
-import { getAddressList } from '../remotes/address-search';
+import { getPoiList } from '../remotes/poi-search';
 import { COLOR } from '../themes/color';
 import SearchBar from './SearchBar';
 import Txt from './Txt';
 
-function SearchPage() {
+function SearchPage({ onSelectPoi, onClose }: { onSelectPoi: (poi: Poi) => void; onClose: () => void }) {
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const { refetch: 장소_검색하기, data: 장소_리스트 } = useQuery(
-    QUERY_KEY.장소_검색하기(searchKeyword),
-    async () => getAddressList(searchKeyword),
+
+  const { refetch: POI_리스트_검색하기, data: poiList } = useQuery(
+    QUERY_KEY.POI_LIST(searchKeyword),
+    async () => getPoiList(searchKeyword),
     {
       enabled: false,
     },
   );
 
-  const 장소_검색하기_디바운스 = useDebounce(장소_검색하기, 200);
+  const POI_리스트_검색하기_디바운스 = useDebounce(POI_리스트_검색하기, 200);
 
   return (
     <SearchPageWrapper>
@@ -30,61 +32,75 @@ function SearchPage() {
         value={searchKeyword}
         onChange={e => {
           setSearchKeyword(e.target.value);
-          장소_검색하기_디바운스();
+          POI_리스트_검색하기_디바운스();
         }}
       />
       <Spacing size={11} />
-      {장소_리스트 != null ? <SearchList poiList={장소_리스트.searchPoiInfo.pois.poi} /> : null}
+      {poiList != null ? (
+        <SearchListWrapper>
+          {poiList.searchPoiInfo.pois.poi.map(poiItem => (
+            <PoiItem key={poiItem.pkey} poi={poiItem} onSelectPoi={onSelectPoi} />
+          ))}
+        </SearchListWrapper>
+      ) : null}
     </SearchPageWrapper>
   );
 }
 
-function SearchItem({ poi }: { poi: Poi }) {
+function PoiItem({ poi, onSelectPoi }: { poi: Poi; onSelectPoi: (poi: Poi) => void }) {
+  const fullAddressRoad = poi.newAddressList.newAddress[0].fullAddressRoad ?? '상세 주소 없음';
+
   return (
-    <SearchItemWrapper>
+    <SearchItemWrapper onClick={() => onSelectPoi(poi)}>
       <Flex direction="column" style={{ gap: '6px' }}>
         <Txt>{poi.name}</Txt>
-        <Txt size="small">{poi.newAddressList.newAddress[0].roadName}</Txt>
+        <Txt size="small">{fullAddressRoad}</Txt>
       </Flex>
       <Arrow direction="right" />
     </SearchItemWrapper>
   );
 }
 
-function SearchList({ poiList }: { poiList: Poi[] }) {
-  return (
-    <SearchListWrapper>
-      {poiList.map(poiItem => (
-        <SearchItem key={poiItem.id} poi={poiItem} />
-      ))}
-    </SearchListWrapper>
-  );
-}
-
 function useSearchPageOverlay() {
   const { open } = useOverlay({ exitOnUnmount: true });
 
-  return () => new Promise(resolve => open(({ isOpen, close, exit }) => <SearchPage />));
+  return () =>
+    new Promise<Poi>(resolve =>
+      open(({ exit }) => (
+        <SearchPage
+          onSelectPoi={poi => {
+            resolve(poi);
+            exit();
+          }}
+          onClose={exit}
+        />
+      )),
+    );
 }
 
 interface Props {
-  onAddressChange?: () => void;
   index: number;
-  disabled?: boolean;
   placeholder?: string;
 }
 
-function AddressSearchInput({ onAddressChange, index, disabled = false, placeholder }: Props) {
+function AddressSearchInput({ index, placeholder }: Props) {
   const openSearchOverlay = useSearchPageOverlay();
+
+  const [selectedPoi, setSelectedPoi] = useState<Poi | null>(null);
 
   return (
     <StyledButton
-      onClick={() => {
-        openSearchOverlay();
+      onClick={async () => {
+        const selectedPoi = await openSearchOverlay();
+        setSelectedPoi(selectedPoi);
       }}
     >
-      <SearchInputMarker index={index} disabled={disabled} />
-      <MarginTxt color="GREY3">{placeholder}</MarginTxt>
+      <SearchInputMarker index={index} disabled={selectedPoi == null} />
+      <MarginTxt color={selectedPoi == null ? 'GREY3' : 'GREY5'}>
+        {match(selectedPoi)
+          .with(Pattern.not(Pattern.nullish), poi => poi.name)
+          .otherwise(() => placeholder)}
+      </MarginTxt>
     </StyledButton>
   );
 }
