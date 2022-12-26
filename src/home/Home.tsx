@@ -1,15 +1,19 @@
 import { Flex, Spacing, Stack } from '@toss/emotion-utils';
-import { useRecoilState } from 'recoil';
-import { addressSearchListAtom } from '../atoms/search';
+import { useRouter } from 'next/router';
+import { usePoiList } from '../atoms/search';
 import AddressAddButton from '../components/AddressAddButton';
 import AddressSearchInput from '../components/AddressSearchInput';
 import FixedBottomCTA from '../components/FixedBottomCTA';
-import SearchBar from '../components/SearchBar';
 import Txt from '../components/Txt';
+import { Route } from '../constants/Route';
 import { Logo } from '../icons';
 
+const MINIMUN_POI_COUNT_FOR_SEARCH = 2;
+
 function Home() {
-  const [addressSearchList, setAddressSearchList] = useRecoilState(addressSearchListAtom);
+  const { poiList, getNotEmptyPoiLength, getCenterOfPoiList } = usePoiList();
+
+  const router = useRouter();
 
   return (
     <>
@@ -26,14 +30,19 @@ function Home() {
       </Flex>
       <Spacing size={42} />
       <Stack gutter={16}>
-        {addressSearchList.map((addressSearch, index) => (
-          <AddressSearchInput key={addressSearch} index={index} placeholder="위치를 입력해주세요" />
+        {poiList.map((poi, index) => (
+          <AddressSearchInput key={poi ? poi.pkey : index} index={index} placeholder="위치를 입력해주세요" />
         ))}
         <AddressAddButton />
-        <SearchBar placeholder="위치를 입력해주세요" />
       </Stack>
-
-      <FixedBottomCTA disabled>중간지점 찾기</FixedBottomCTA>
+      <FixedBottomCTA
+        disabled={getNotEmptyPoiLength() < MINIMUN_POI_COUNT_FOR_SEARCH}
+        onClick={async () => {
+          await router.push(Route.검색결과({ ...getCenterOfPoiList() }));
+        }}
+      >
+        중간지점 찾기
+      </FixedBottomCTA>
     </>
   );
 }

@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
-import { Spacing } from '@toss/emotion-utils';
+import { usePoiList } from '../atoms/search';
 import { SearchInputMarker } from '../icons';
 import { COLOR } from '../themes/color';
 import Txt from './Txt';
 
 function AddressAddButton() {
+  const { addEmptyPoi } = usePoiList();
+
   return (
-    <StyledButton>
+    <StyledButton onClick={() => addEmptyPoi()}>
       <SearchInputMarker type="plus" />
       <MarginTxt color="WHITE">위치 추가하기</MarginTxt>
     </StyledButton>

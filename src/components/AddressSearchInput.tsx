@@ -4,9 +4,10 @@ import { Flex, Spacing } from '@toss/emotion-utils';
 import { useOverlay } from '@toss/use-overlay';
 import { useState } from 'react';
 import { match, Pattern } from 'ts-pattern';
+import { usePoiList } from '../atoms/search';
 import { QUERY_KEY } from '../constants/QueryKey';
 import { useDebounce } from '../hooks/useDebounce';
-import { Arrow, SearchInputMarker } from '../icons';
+import { Arrow, Close, SearchInputMarker } from '../icons';
 import { Poi } from '../models/poi';
 import { getPoiList } from '../remotes/poi-search';
 import { COLOR } from '../themes/color';
@@ -86,21 +87,35 @@ interface Props {
 function AddressSearchInput({ index, placeholder }: Props) {
   const openSearchOverlay = useSearchPageOverlay();
 
-  const [selectedPoi, setSelectedPoi] = useState<Poi | null>(null);
+  const { changePoiItem, resetPoiItem, getPoiByIndex, removePoi } = usePoiList();
+  const poi = getPoiByIndex(index);
 
   return (
     <StyledButton
       onClick={async () => {
         const selectedPoi = await openSearchOverlay();
-        setSelectedPoi(selectedPoi);
+        changePoiItem(index, selectedPoi);
       }}
     >
-      <SearchInputMarker index={index} disabled={selectedPoi == null} />
-      <MarginTxt color={selectedPoi == null ? 'GREY3' : 'GREY5'}>
-        {match(selectedPoi)
-          .with(Pattern.not(Pattern.nullish), poi => poi.name)
-          .otherwise(() => placeholder)}
-      </MarginTxt>
+      <Flex align="center">
+        <SearchInputMarker index={index} disabled={poi == null} />
+        <MarginTxt color={poi == null ? 'GREY3' : 'GREY5'}>
+          {match(poi)
+            .with(Pattern.not(Pattern.nullish), poi => poi.name)
+            .otherwise(() => placeholder)}
+        </MarginTxt>
+      </Flex>
+      <Close
+        onClick={e => {
+          e.stopPropagation();
+
+          if (poi == null) {
+            removePoi(index);
+          } else {
+            resetPoiItem(index);
+          }
+        }}
+      />
     </StyledButton>
   );
 }
@@ -117,6 +132,7 @@ const SearchPageWrapper = styled.section`
 
 const StyledButton = styled.button`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 12px;
