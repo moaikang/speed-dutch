@@ -11,6 +11,7 @@ import { Close, SearchInputMarker } from '../icons';
 import { Poi } from '../models/poi';
 import { getPoiList } from '../remotes/poi-search';
 import { COLOR } from '../themes/color';
+import Layout from './Layout';
 import List from './List';
 import SearchBar from './SearchBar';
 import Txt from './Txt';
@@ -30,27 +31,29 @@ function SearchPage({ onSelectPoi, onClose }: { onSelectPoi: (poi: Poi) => void;
 
   return (
     <SearchPageWrapper>
-      <SearchBar
-        value={searchKeyword}
-        onChange={e => {
-          setSearchKeyword(e.target.value);
-          POI_리스트_검색하기_디바운스();
-        }}
-      />
-      <Spacing size={11} />
-      {poiList != null ? (
-        <List>
-          {poiList.searchPoiInfo.pois.poi.map(poiItem => (
-            <List.Item
-              type="arrow"
-              key={poiItem.pkey}
-              title={poiItem.name}
-              description={poiItem.newAddressList.newAddress[0].fullAddressRoad ?? '상세 주소 없음'}
-              onClick={() => onSelectPoi(poiItem)}
-            />
-          ))}
-        </List>
-      ) : null}
+      <Layout>
+        <SearchBar
+          value={searchKeyword}
+          onChange={e => {
+            setSearchKeyword(e.target.value);
+            POI_리스트_검색하기_디바운스();
+          }}
+        />
+        <Spacing size={11} />
+        {poiList != null ? (
+          <List>
+            {poiList.searchPoiInfo.pois.poi.map(poiItem => (
+              <List.Item
+                type="arrow"
+                key={poiItem.pkey}
+                title={poiItem.name}
+                description={poiItem.newAddressList.newAddress[0].fullAddressRoad ?? '상세 주소 없음'}
+                onClick={() => onSelectPoi(poiItem)}
+              />
+            ))}
+          </List>
+        ) : null}
+      </Layout>
     </SearchPageWrapper>
   );
 }
