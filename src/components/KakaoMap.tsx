@@ -69,8 +69,10 @@ function KakaoMap({ lat, lon }: Props) {
       <div
         ref={mapContainerRef}
         style={{
-          width: '100%',
-          height: '400px',
+          width: '100vw',
+          maxWidth: '768px',
+          transform: 'translateX(-16px)',
+          height: '100vh',
         }}
       />
     </>

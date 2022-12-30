@@ -19,7 +19,6 @@ const FixedBottomCTA = ({ children, description, ...props }: Props) => {
 
 const DescriptionWrapper = styled.div`
   padding: 0 0 16px 0;
-  width: calc(100% - 32px);
 `;
 
 export default FixedBottomCTA;

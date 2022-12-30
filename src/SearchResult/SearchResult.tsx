@@ -144,7 +144,7 @@ function NearLocationList({
   } = useSuspendedQuery(QUERY_KEY.NEAR_FACILITIES(searchParams), () => getNearFacilities(searchParams));
 
   return (
-    <List>
+    <List height="216px">
       {검색결과_리스트.map(검색결과 => (
         <List.Item
           key={검색결과.pkey}

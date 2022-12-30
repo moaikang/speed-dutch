@@ -120,7 +120,7 @@ const SearchPageWrapper = styled.section`
   position: fixed;
   left: 0;
   top: 0;
-  width: calc(100vw - 32px);
+  width: 100vw;
   height: 100vh;
   background-color: ${COLOR.GREY7};
   padding: 11px 16px 0 16px;

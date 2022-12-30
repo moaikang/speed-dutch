@@ -6,14 +6,19 @@ export default function GlobalStyle() {
 }
 
 const globalCss = css`
+  * {
+    box-sizing: border-box;
+  }
+
   body,
   html,
   #__next {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-size: 16px;
     background-color: ${COLOR.GREY7};
+    min-height: 100vh;
+    overflow: auto;
   }
 
   body {
