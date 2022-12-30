@@ -18,10 +18,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const query = req.query;
   try {
     const addressList = await getAddressList(query.searchKeyword as string);
-    res.status(200).json(addressList);
+    return res.status(200).json(addressList);
   } catch (err) {
     if (isAxiosError(err)) {
-      res.status(Number(err?.code));
+      return res.status(Number(err?.code));
     }
+
+    return res.status(500);
   }
 }

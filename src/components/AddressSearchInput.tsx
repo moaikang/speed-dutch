@@ -7,10 +7,11 @@ import { match, Pattern } from 'ts-pattern';
 import { usePoiList } from '../atoms/search';
 import { QUERY_KEY } from '../constants/QueryKey';
 import { useDebounce } from '../hooks/useDebounce';
-import { Arrow, Close, SearchInputMarker } from '../icons';
+import { Close, SearchInputMarker } from '../icons';
 import { Poi } from '../models/poi';
 import { getPoiList } from '../remotes/poi-search';
 import { COLOR } from '../themes/color';
+import List from './List';
 import SearchBar from './SearchBar';
 import Txt from './Txt';
 
@@ -38,27 +39,19 @@ function SearchPage({ onSelectPoi, onClose }: { onSelectPoi: (poi: Poi) => void;
       />
       <Spacing size={11} />
       {poiList != null ? (
-        <SearchListWrapper>
+        <List>
           {poiList.searchPoiInfo.pois.poi.map(poiItem => (
-            <PoiItem key={poiItem.pkey} poi={poiItem} onSelectPoi={onSelectPoi} />
+            <List.Item
+              type="arrow"
+              key={poiItem.pkey}
+              title={poiItem.name}
+              description={poiItem.newAddressList.newAddress[0].fullAddressRoad ?? '상세 주소 없음'}
+              onClick={() => onSelectPoi(poiItem)}
+            />
           ))}
-        </SearchListWrapper>
+        </List>
       ) : null}
     </SearchPageWrapper>
-  );
-}
-
-function PoiItem({ poi, onSelectPoi }: { poi: Poi; onSelectPoi: (poi: Poi) => void }) {
-  const fullAddressRoad = poi.newAddressList.newAddress[0].fullAddressRoad ?? '상세 주소 없음';
-
-  return (
-    <SearchItemWrapper onClick={() => onSelectPoi(poi)}>
-      <Flex direction="column" style={{ gap: '6px' }}>
-        <Txt>{poi.name}</Txt>
-        <Txt size="small">{fullAddressRoad}</Txt>
-      </Flex>
-      <Arrow direction="right" />
-    </SearchItemWrapper>
   );
 }
 
@@ -138,17 +131,6 @@ const StyledButton = styled.button`
   padding: 12px;
   background-color: ${COLOR.WHITE};
   border-radius: 12px;
-`;
-
-export const SearchListWrapper = styled.ul`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const SearchItemWrapper = styled.li`
-  display: flex;
-  justify-content: space-between;
-  padding: 19px 0;
 `;
 
 export const MarginTxt = styled(Txt)`

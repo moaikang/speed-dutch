@@ -28,10 +28,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const query = req.query;
   try {
     const addressList = await getAddressByLatLon({ lat: Number(query.lat), lon: Number(query.lon) });
-    res.status(200).json(addressList);
+    return res.status(200).json(addressList);
   } catch (err) {
     if (isAxiosError(err)) {
-      res.status(Number(err?.code));
+      return res.status(Number(err?.code));
     }
+
+    return res.status(500);
   }
 }
