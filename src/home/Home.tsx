@@ -2,7 +2,7 @@ import { Flex, Spacing, Stack } from '@toss/emotion-utils';
 import { useRouter } from 'next/router';
 import { usePoiList } from '../atoms/search';
 import AddressAddButton from '../components/AddressAddButton';
-import AddressSearchInput from '../components/AddressSearchInput';
+import PoiSearchInput from '../components/PoiSearchInput';
 import FixedBottomCTA from '../components/FixedBottomCTA';
 import Txt from '../components/Txt';
 import { Route } from '../constants/Route';
@@ -31,7 +31,7 @@ function Home() {
       <Spacing size={42} />
       <Stack gutter={16}>
         {poiList.map((poi, index) => (
-          <AddressSearchInput key={poi ? poi.pkey : index} index={index} placeholder="위치를 입력해주세요" />
+          <PoiSearchInput key={poi ? poi.pkey : index} index={index} placeholder="위치를 입력해주세요" />
         ))}
         <AddressAddButton />
       </Stack>

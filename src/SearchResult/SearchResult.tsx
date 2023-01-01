@@ -15,6 +15,7 @@ import { SearchResultQueryParams } from '../models/search-result/params';
 import { FilterTab } from '../models/search-result/tab';
 import { getNearFacilities } from '../remotes/near-facilities';
 import { getAddressByLocation } from '../remotes/reverse-geocode';
+import { copyToClipboard } from '../utils/clipboard';
 
 const NEAR_LOCATION_FILTERS: Array<{ name: string; value: FilterTab }> = [
   { name: '대중교통', value: 'public-transport' },
@@ -85,7 +86,10 @@ function Result() {
         </>
       }
       disabled={selectedItem == null}
-      onClick={() => window.alert('공유하기 맨')}
+      onClick={async () => {
+        await copyToClipboard(window.location.href);
+        window.alert('클립보드에 링크를 복사했어요');
+      }}
     >
       친구에게 공유
     </FixedBottomCTA>

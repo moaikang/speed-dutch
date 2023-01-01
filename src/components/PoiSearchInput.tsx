@@ -80,7 +80,7 @@ interface Props {
   placeholder?: string;
 }
 
-function AddressSearchInput({ index, placeholder }: Props) {
+function PoiSearchInput({ index, placeholder }: Props) {
   const openSearchOverlay = useSearchPageOverlay();
 
   const { changePoiItem, resetPoiItem, getPoiByIndex, removePoi } = usePoiList();
@@ -140,4 +140,4 @@ export const MarginTxt = styled(Txt)`
   margin-left: 8px;
 `;
 
-export default AddressSearchInput;
+export default PoiSearchInput;
