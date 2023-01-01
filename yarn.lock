@@ -55,7 +55,7 @@
     core-js-pure "^3.25.1"
     regenerator-runtime "^0.13.11"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.14.8", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.9", "@babel/runtime@^7.19.0":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.14.8", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.9":
   version "7.20.7"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.7.tgz#fcb41a5a70550e04a7b708037c7c32f7f356d8fd"
   integrity sha512-UF0tvkUtxwAgZ5W/KrkHf0Rn0fdnLDU9ScxBrEVNUprE/MzirjK4MJUX1/BVDv00Sv8cljtukVK1aky++X1SjQ==
@@ -362,24 +362,6 @@
     "@toss/utils" "^1.3.0"
     csstype "^3.0.9"
 
-"@toss/react@^1.3.4":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@toss/react/-/react-1.3.4.tgz#7a0320703e341e181460139ce0b9c0da53bbe11b"
-  integrity sha512-FVA2CGImFfJu9WPQvnnCTnui3Zp76KNwEQG3jFq4YRdBtbPZsFxbkQrrA2982eSg52u832ehvF+tql3lzwTm0Q==
-  dependencies:
-    "@babel/runtime" "^7.14.8"
-    "@toss/storage" "^1.1.0"
-    "@toss/utils" "^1.3.0"
-    classnames "^2.3.1"
-    lodash "^4.17.20"
-
-"@toss/storage@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@toss/storage/-/storage-1.1.0.tgz#1fbe442868cef0980b26d27575799b05c59ee217"
-  integrity sha512-bDMg+8HmJXeBueh4hgr+r0XKv/TWXWAazjPocOoYjp7lqBS2aiJKfhkwEabFwe9i+a4NQoXKsG6bwDAZO4t2sQ==
-  dependencies:
-    "@babel/runtime" "^7.19.0"
-
 "@toss/use-overlay@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@toss/use-overlay/-/use-overlay-1.3.0.tgz#47e7fbb09d6839b40cfa5ad1fcb872a0cfaba75c"
@@ -676,11 +658,6 @@ chalk@^4.0.0:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
-
-classnames@^2.3.1:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
-  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
 
 client-only@0.0.1:
   version "0.0.1"
@@ -1652,7 +1629,7 @@ lodash.merge@^4.6.2:
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
-lodash@^4.17.20, lodash@^4.17.21:
+lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==

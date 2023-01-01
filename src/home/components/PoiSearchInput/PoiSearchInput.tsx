@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { Flex, Spacing } from '@toss/emotion-utils';
-import { useDebounce } from '@toss/react';
 import { useOverlay } from '@toss/use-overlay';
 import { useState } from 'react';
 import { match, Pattern } from 'ts-pattern';
@@ -11,6 +10,7 @@ import List from '../../../components/List';
 import SearchBar from '../../../components/SearchBar';
 import Txt from '../../../components/Txt';
 import { QUERY_KEY } from '../../../constants/QueryKey';
+import { useDebounce } from '../../../hooks/useDebounce';
 import { Close, SearchInputMarker } from '../../../icons';
 import { Poi } from '../../../models/poi';
 import { getPoiList } from '../../../remotes/poi-search';
