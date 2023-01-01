@@ -18,12 +18,12 @@ const globalCss = css`
     padding: 0;
     font-size: 16px;
     background-color: ${COLOR.GREY7};
-    min-height: 100vh;
     overflow: auto;
   }
 
   body {
     padding: 0 16px;
+    min-height: 100vh;
   }
 
   a {

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { usePoiList } from '../atoms/search';
 import FixedBottomCTA from '../components/FixedBottomCTA';
 import Txt from '../components/Txt';
+import WithCenter from '../components/WithCenter';
 import { Route } from '../constants/Route';
 import { Logo } from '../icons';
 import AddressAddButton from './components/AddressAddButton';
@@ -18,20 +19,18 @@ function Home() {
   return (
     <>
       <Spacing size={42} />
-      <Flex width="100%" justify="center">
+      <WithCenter>
         <Logo />
-      </Flex>
+      </WithCenter>
       <Spacing size={16} />
-      <Flex width="100%" justify="center">
-        <Txt size="big">
-          만날 장소가 고민이라면
-          <br /> 중간지점에서 만나보세요!
-        </Txt>
-      </Flex>
+      <Txt size="big" center>
+        만날 장소가 고민이라면
+        <br /> 중간지점에서 만나보세요!
+      </Txt>
       <Spacing size={42} />
       <Stack gutter={16}>
         {poiList.map((poi, index) => (
-          <PoiSearchInput key={poi ? poi.pkey : index} index={index} placeholder="위치를 입력해주세요" />
+          <PoiSearchInput key={poi?.pkey} index={index} placeholder="위치를 입력해주세요" />
         ))}
         <AddressAddButton />
       </Stack>
