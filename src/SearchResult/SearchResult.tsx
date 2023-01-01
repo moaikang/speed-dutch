@@ -61,6 +61,7 @@ function Result() {
 
   return tab == null ? (
     <FixedBottomCTA
+      takeSpace={false}
       description={
         <Stack gutter={16}>
           <Txt size="semi-big" color="ORANGE">
@@ -77,6 +78,7 @@ function Result() {
     </FixedBottomCTA>
   ) : (
     <FixedBottomCTA
+      takeSpace={false}
       description={
         <>
           <NearLocationFilterList />

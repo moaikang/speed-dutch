@@ -5,12 +5,13 @@ import FixedBottomSheet from './FixedBottomSheet';
 
 interface Props extends ComponentProps<typeof Button> {
   children: ReactNode;
+  takeSpace?: boolean;
   description?: ReactNode;
 }
 
 const FixedBottomCTA = ({ children, description, ...props }: Props) => {
   return (
-    <FixedBottomSheet>
+    <FixedBottomSheet {...props}>
       {description != null ? <DescriptionWrapper>{description}</DescriptionWrapper> : null}
       <Button {...props}>{children}</Button>
     </FixedBottomSheet>
