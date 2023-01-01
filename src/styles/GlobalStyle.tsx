@@ -8,6 +8,7 @@ export default function GlobalStyle() {
 const globalCss = css`
   * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body,
