@@ -5,10 +5,10 @@ import useResizeObserver from 'use-resize-observer';
 import { COLOR } from '../themes/color';
 import { px } from '../utils/css';
 import Layout from './Layout';
-import SSRSuspense from './SSRSuspense';
 
 interface Props {
   children: ReactNode;
+  takeSpace?: boolean;
 }
 
 const setPaddingBottomToBodyTag = (size: number) => {
@@ -19,7 +19,7 @@ const getContentBoundingRect = () => {
   return document.querySelector('#__next')?.getBoundingClientRect();
 };
 
-const FixedBottomSheet = ({ children }: Props) => {
+const FixedBottomSheet = ({ children, takeSpace = true }: Props) => {
   const bottomSheetRef = useRef<HTMLElement>(null);
 
   const calculateBottomSheetBoundingRect = () => {
@@ -34,6 +34,8 @@ const FixedBottomSheet = ({ children }: Props) => {
   });
 
   useEffect(() => {
+    if (!takeSpace) return;
+
     const bottomSheetBoundingRect = calculateBottomSheetBoundingRect();
     const contentBoundingRect = getContentBoundingRect();
 
@@ -41,12 +43,16 @@ const FixedBottomSheet = ({ children }: Props) => {
       const isIntersecting = contentBoundingRect.bottom > bottomSheetBoundingRect.top;
 
       if (isIntersecting) {
-        setPaddingBottomToBodyTag(bottomSheetBoundingRect.height);
+        const space = contentBoundingRect.bottom - bottomSheetBoundingRect.top;
+        setPaddingBottomToBodyTag(space);
       }
     }
 
-    return () => setPaddingBottomToBodyTag(0);
-  }, [contentBox.height]);
+    return () => {
+      if (!takeSpace) return;
+      setPaddingBottomToBodyTag(0);
+    };
+  }, [contentBox.height, takeSpace]);
 
   return (
     <Layout
