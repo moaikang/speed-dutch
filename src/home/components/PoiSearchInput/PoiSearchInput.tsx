@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { Flex, Spacing } from '@toss/emotion-utils';
+import { useDebounce } from '@toss/react';
 import { useOverlay } from '@toss/use-overlay';
 import { useState } from 'react';
 import { match, Pattern } from 'ts-pattern';
-import { usePoiList } from '../atoms/search';
-import { QUERY_KEY } from '../constants/QueryKey';
-import { useDebounce } from '../hooks/useDebounce';
-import { Close, SearchInputMarker } from '../icons';
-import { Poi } from '../models/poi';
-import { getPoiList } from '../remotes/poi-search';
-import { COLOR } from '../themes/color';
-import Layout from './Layout';
-import List from './List';
-import SearchBar from './SearchBar';
-import Txt from './Txt';
+import { usePoiList } from '../../../atoms/search';
+import Layout from '../../../components/Layout';
+import List from '../../../components/List';
+import SearchBar from '../../../components/SearchBar';
+import Txt from '../../../components/Txt';
+import { QUERY_KEY } from '../../../constants/QueryKey';
+import { Close, SearchInputMarker } from '../../../icons';
+import { Poi } from '../../../models/poi';
+import { getPoiList } from '../../../remotes/poi-search';
+import { COLOR } from '../../../themes/color';
 
 function SearchPage({ onSelectPoi, onClose }: { onSelectPoi: (poi: Poi) => void; onClose: () => void }) {
   const [searchKeyword, setSearchKeyword] = useState<string>('');

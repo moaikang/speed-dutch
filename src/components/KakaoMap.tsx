@@ -36,8 +36,6 @@ function KakaoMap({ lat, lon }: Props) {
 
     const imageSize = new kakao.maps.Size(66, 86); // 마커이미지의 크기입니다
     const imageOption = { offset: new kakao.maps.Point(33, 86) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
     const markerImage = new kakao.maps.MarkerImage('/center-marker.svg', imageSize, imageOption);
 
     const marker = new kakao.maps.Marker({

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { usePoiList } from '../atoms/search';
-import { SearchInputMarker } from '../icons';
-import { COLOR } from '../themes/color';
-import Txt from './Txt';
+import { usePoiList } from '../../../atoms/search';
+import Txt from '../../../components/Txt';
+import { SearchInputMarker } from '../../../icons';
+import { COLOR } from '../../../themes/color';
 
 function AddressAddButton() {
   const { addEmptyPoi } = usePoiList();

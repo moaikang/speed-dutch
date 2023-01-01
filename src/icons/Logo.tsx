@@ -1,12 +1,6 @@
 function Logo() {
   return (
-    <svg
-      width="46"
-      height="52"
-      viewBox="0 0 46 52"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="46" height="52" viewBox="0 0 46 52" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M7.44174 6.306C-1.15052 14.7177 -1.15052 28.3569 7.44174 36.7687L23 52L38.5582 36.7687C47.1505 28.3569 47.1505 14.7177 38.5582 6.306C29.9622 -2.102 16.0302 -2.102 7.44174 6.306Z"
         fill="#EF4B33"

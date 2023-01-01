@@ -1,12 +1,12 @@
 import { Flex, Spacing, Stack } from '@toss/emotion-utils';
 import { useRouter } from 'next/router';
 import { usePoiList } from '../atoms/search';
-import AddressAddButton from '../components/AddressAddButton';
-import PoiSearchInput from '../components/PoiSearchInput';
 import FixedBottomCTA from '../components/FixedBottomCTA';
 import Txt from '../components/Txt';
 import { Route } from '../constants/Route';
 import { Logo } from '../icons';
+import AddressAddButton from './components/AddressAddButton';
+import PoiSearchInput from './components/PoiSearchInput';
 
 const MINIMUN_POI_COUNT_FOR_SEARCH = 2;
 
