@@ -31,32 +31,30 @@ function SearchPage({ onSelectPoi, onClose }: { onSelectPoi: (poi: Poi) => void;
 
   return (
     <SearchPageWrapper>
-      <Layout>
-        <Stack.Horizontal align="center" gutter={8}>
-          <Arrow color="WHITE" direction="left" onClick={() => onClose()} />
-          <SearchBar
-            value={searchKeyword}
-            onChange={e => {
-              setSearchKeyword(e.target.value);
-              POI_리스트_검색하기_디바운스();
-            }}
-          />
-        </Stack.Horizontal>
-        <Spacing size={11} />
-        {poiList != null ? (
-          <List>
-            {poiList.searchPoiInfo.pois.poi.map(poiItem => (
-              <List.Item
-                type="arrow"
-                key={poiItem.pkey}
-                title={poiItem.name}
-                description={poiItem.newAddressList.newAddress[0].fullAddressRoad ?? '상세 주소 없음'}
-                onClick={() => onSelectPoi(poiItem)}
-              />
-            ))}
-          </List>
-        ) : null}
-      </Layout>
+      <Stack.Horizontal align="center" gutter={8}>
+        <Arrow color="WHITE" direction="left" onClick={() => onClose()} />
+        <SearchBar
+          value={searchKeyword}
+          onChange={e => {
+            setSearchKeyword(e.target.value);
+            POI_리스트_검색하기_디바운스();
+          }}
+        />
+      </Stack.Horizontal>
+      <Spacing size={11} />
+      {poiList != null ? (
+        <List>
+          {poiList.searchPoiInfo.pois.poi.map(poiItem => (
+            <List.Item
+              type="arrow"
+              key={poiItem.pkey}
+              title={poiItem.name}
+              description={poiItem.newAddressList.newAddress[0].fullAddressRoad ?? '상세 주소 없음'}
+              onClick={() => onSelectPoi(poiItem)}
+            />
+          ))}
+        </List>
+      ) : null}
     </SearchPageWrapper>
   );
 }

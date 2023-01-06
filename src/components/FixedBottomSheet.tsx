@@ -60,6 +60,8 @@ const FixedBottomSheet = ({ children, takeSpace = true }: Props) => {
       css={css`
         position: fixed;
         bottom: 0;
+        padding: 0;
+        width: 100vw;
         transform: translateX(-16px);
       `}
     >

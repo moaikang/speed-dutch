@@ -2,6 +2,8 @@ import { sum } from '@toss/utils';
 import { atom, useRecoilState } from 'recoil';
 import { Poi } from '../models/poi';
 
+const MAX_POI_LIST_LENGTH = 9;
+
 const poiListAtom = atom<(Poi | null)[]>({
   key: 'poiList',
   default: [null, null],
@@ -44,6 +46,10 @@ export function usePoiList() {
     return { lat: centerLat, lon: centerLon };
   };
 
+  const isFullPoiList = () => {
+    return poiList.length >= MAX_POI_LIST_LENGTH;
+  };
+
   return {
     poiList,
     setPoiList,
@@ -54,5 +60,6 @@ export function usePoiList() {
     removePoi,
     getNotEmptyPoiLength,
     getCenterOfPoiList,
+    isFullPoiList,
   };
 }

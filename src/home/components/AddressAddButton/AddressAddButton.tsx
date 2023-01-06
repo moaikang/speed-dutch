@@ -4,11 +4,17 @@ import Txt from '../../../components/Txt';
 import { SearchInputMarker } from '../../../icons';
 import { COLOR } from '../../../themes/color';
 
+// TODO: 위치 추가 버튼 Disable 디자인 개발
 function AddressAddButton() {
-  const { addEmptyPoi } = usePoiList();
+  const { addEmptyPoi, isFullPoiList } = usePoiList();
 
   return (
-    <StyledButton onClick={() => addEmptyPoi()}>
+    <StyledButton
+      onClick={() => {
+        addEmptyPoi();
+      }}
+      disabled={isFullPoiList()}
+    >
       <SearchInputMarker type="plus" />
       <MarginTxt color="WHITE">위치 추가하기</MarginTxt>
     </StyledButton>

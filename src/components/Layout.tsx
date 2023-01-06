@@ -20,6 +20,7 @@ const Layout = forwardRef<HTMLElement, Props>(function Layout({ children, css }:
 const Wrapper = styled.section<Props>`
   width: 100%;
   max-width: ${px(LAYOUT.MAX_WIDTH)};
+  padding: 0 16px;
   margin: 0 auto;
   ${props => props.css};
 `;

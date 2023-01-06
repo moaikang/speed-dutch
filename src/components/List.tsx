@@ -49,7 +49,7 @@ export const ItemWrapper = styled.li<{ selected?: boolean }>`
   width: 100%;
   justify-content: space-between;
   padding: 19px 0;
-  background-color: ${props => (props.selected ? COLOR.GREY6 : 'transparent')};
+  /* background-color: ${props => (props.selected ? COLOR.GREY6 : 'transparent')}; */
 `;
 
 export default List;

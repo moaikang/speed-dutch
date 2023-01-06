@@ -22,7 +22,6 @@ const globalCss = css`
   }
 
   body {
-    padding: 0 16px;
     min-height: 100vh;
   }
 

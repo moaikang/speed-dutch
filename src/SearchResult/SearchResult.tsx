@@ -72,7 +72,7 @@ function Result() {
           </Txt>
         </Stack>
       }
-      onClick={() => pushToNearLocationList('public-transport')}
+      onClick={() => pushToNearLocationList('restaurant')}
     >
       중간지점 주변 살펴보기
     </FixedBottomCTA>
@@ -104,7 +104,7 @@ function NearLocationFilterList() {
 
   return (
     <Stack.Horizontal gutter={8}>
-      {NEAR_LOCATION_FILTERS.map(({ value, name }) => (
+      {NEAR_LOCATION_FILTERS.filter(filter => filter.value !== 'public-transport').map(({ value, name }) => (
         <Chip
           key={value}
           active={value === tab}
