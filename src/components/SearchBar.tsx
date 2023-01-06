@@ -15,6 +15,7 @@ const SearchBar = (props: Props) => {
 };
 
 const Wrapper = styled.section`
+  width: 100%;
   display: flex;
   align-items: center;
   background-color: ${COLOR.GREY5};
@@ -23,6 +24,7 @@ const Wrapper = styled.section`
 `;
 
 const StyledInput = styled.input`
+  width: 100%;
   margin-left: 8px;
   background: transparent;
   outline: none;

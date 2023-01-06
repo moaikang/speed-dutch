@@ -13,7 +13,6 @@ const MINIMUN_POI_COUNT_FOR_SEARCH = 2;
 
 function Home() {
   const { poiList, getNotEmptyPoiLength, getCenterOfPoiList } = usePoiList();
-
   const router = useRouter();
 
   return (

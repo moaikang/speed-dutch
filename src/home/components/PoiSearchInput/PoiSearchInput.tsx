@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { Flex, Spacing } from '@toss/emotion-utils';
+import { Flex, Spacing, Stack } from '@toss/emotion-utils';
 import { useOverlay } from '@toss/use-overlay';
 import { useState } from 'react';
 import { match, Pattern } from 'ts-pattern';
@@ -11,7 +11,7 @@ import SearchBar from '../../../components/SearchBar';
 import Txt from '../../../components/Txt';
 import { QUERY_KEY } from '../../../constants/QueryKey';
 import { useDebounce } from '../../../hooks/useDebounce';
-import { Close, SearchInputMarker } from '../../../icons';
+import { Arrow, Close, SearchInputMarker } from '../../../icons';
 import { Poi } from '../../../models/poi';
 import { getPoiList } from '../../../remotes/poi-search';
 import { COLOR } from '../../../themes/color';
@@ -32,13 +32,16 @@ function SearchPage({ onSelectPoi, onClose }: { onSelectPoi: (poi: Poi) => void;
   return (
     <SearchPageWrapper>
       <Layout>
-        <SearchBar
-          value={searchKeyword}
-          onChange={e => {
-            setSearchKeyword(e.target.value);
-            POI_리스트_검색하기_디바운스();
-          }}
-        />
+        <Stack.Horizontal align="center" gutter={8}>
+          <Arrow color="WHITE" direction="left" onClick={() => onClose()} />
+          <SearchBar
+            value={searchKeyword}
+            onChange={e => {
+              setSearchKeyword(e.target.value);
+              POI_리스트_검색하기_디바운스();
+            }}
+          />
+        </Stack.Horizontal>
         <Spacing size={11} />
         {poiList != null ? (
           <List>
@@ -62,14 +65,17 @@ function useSearchPageOverlay() {
   const { open } = useOverlay({ exitOnUnmount: true });
 
   return () =>
-    new Promise<Poi>(resolve =>
+    new Promise<Poi | null>(resolve =>
       open(({ exit }) => (
         <SearchPage
           onSelectPoi={poi => {
             resolve(poi);
             exit();
           }}
-          onClose={exit}
+          onClose={() => {
+            resolve(null);
+            exit();
+          }}
         />
       )),
     );
@@ -90,7 +96,9 @@ function PoiSearchInput({ index, placeholder }: Props) {
     <StyledButton
       onClick={async () => {
         const selectedPoi = await openSearchOverlay();
-        changePoiItem(index, selectedPoi);
+        if (selectedPoi != null) {
+          changePoiItem(index, selectedPoi);
+        }
       }}
     >
       <Flex align="center">
