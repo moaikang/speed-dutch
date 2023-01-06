@@ -68,7 +68,7 @@ function Result() {
             중간지점 결과
           </Txt>
           <Txt textAlign="start" size="big" weight="normal">
-            {data.addressInfo.fullAddress}
+            {`${data.addressInfo.city_do} ${data.addressInfo.gu_gun} ${data.addressInfo.legalDong}`}
           </Txt>
         </Stack>
       }

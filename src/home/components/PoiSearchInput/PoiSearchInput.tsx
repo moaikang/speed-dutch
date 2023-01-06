@@ -5,7 +5,6 @@ import { useOverlay } from '@toss/use-overlay';
 import { useState } from 'react';
 import { match, Pattern } from 'ts-pattern';
 import { usePoiList } from '../../../atoms/search';
-import Layout from '../../../components/Layout';
 import List from '../../../components/List';
 import SearchBar from '../../../components/SearchBar';
 import Txt from '../../../components/Txt';
