@@ -1,20 +1,9 @@
-import { ComponentProps, Suspense, useEffect, useState } from 'react';
-
-function useMounted() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  return mounted;
-}
+import { ComponentProps, Suspense } from 'react';
 
 export default function SSRSuspense(props: ComponentProps<typeof Suspense>) {
-  const isMounted = useMounted();
-
-  if (isMounted) {
-    return <Suspense {...props} />;
+  if (typeof window === 'undefined') {
+    <>{props.fallback}</>;
   }
-  return <>{props.fallback}</>;
+
+  return <Suspense {...props} />;
 }

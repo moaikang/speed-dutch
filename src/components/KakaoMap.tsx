@@ -2,6 +2,8 @@ import assert from 'assert';
 import Script from 'next/script';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Coordinate } from '../models/coordinate';
+import { px } from '../utils/css';
+import { calculateWindowHeightExceptBottomSheet } from '../utils/layout/BottomSheet';
 
 const APP_KEY = '2d1322e7d17a2bd761063469d6dd3c97';
 
@@ -104,6 +106,11 @@ function KakaoMap({ centerCoordinate, selectCoordinate }: Props) {
     };
   }, [mapInstance, selectCoordinate, setSelectMarker, panToMarker]);
 
+  const calcualteMapHeight = () => {
+    const windowHeightWithoutBottomSheet = calculateWindowHeightExceptBottomSheet();
+    return windowHeightWithoutBottomSheet ? px(windowHeightWithoutBottomSheet + 16) : '100vh';
+  };
+
   return (
     <>
       <Script
@@ -116,7 +123,7 @@ function KakaoMap({ centerCoordinate, selectCoordinate }: Props) {
           width: '100vw',
           maxWidth: '768px',
           transform: 'translateX(-16px)',
-          height: '60vh',
+          height: calcualteMapHeight(),
         }}
       />
     </>

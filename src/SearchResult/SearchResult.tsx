@@ -1,4 +1,5 @@
 import { Stack } from '@toss/emotion-utils';
+import assert from 'assert';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import Chip from '../components/Chip';
@@ -109,7 +110,12 @@ function Result() {
       disabled={selectedItem == null}
       onClick={async () => {
         try {
-          await openShareBottomSheet({ title: '더치 | 더 편리한 위치찾기' });
+          assert(selectedItem != null);
+          await openShareBottomSheet({
+            title: '더치 | 더 편리한 위치찾기',
+            text: `중간에 위치한 ${selectedItem.name} 어때요?`,
+            url: window.location.href,
+          });
         } catch (err) {
           await copyToClipboard(window.location.href);
           window.alert('클립보드에 링크를 복사했어요');

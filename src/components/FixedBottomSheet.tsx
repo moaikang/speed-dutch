@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ReactNode, useEffect, useRef } from 'react';
 import useResizeObserver from 'use-resize-observer';
+import { BOTTOM_SHEET_ID } from '../themes/BottomSheet';
 import { COLOR } from '../themes/color';
 import { px } from '../utils/css';
 import Layout from './Layout';
@@ -56,6 +57,7 @@ const FixedBottomSheet = ({ children, takeSpace = true }: Props) => {
 
   return (
     <Layout
+      id={BOTTOM_SHEET_ID}
       ref={bottomSheetRef}
       css={css`
         position: fixed;
