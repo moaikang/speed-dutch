@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { Flex, Spacing, Stack } from '@toss/emotion-utils';
+import { Flex, FullHeight, Spacing, Stack } from '@toss/emotion-utils';
 import { useOverlay } from '@toss/use-overlay';
 import { useState } from 'react';
 import { match, Pattern } from 'ts-pattern';
@@ -18,15 +18,18 @@ import { COLOR } from '../../../themes/color';
 function SearchPage({ onSelectPoi, onClose }: { onSelectPoi: (poi: Poi) => void; onClose: () => void }) {
   const [searchKeyword, setSearchKeyword] = useState<string>('');
 
-  const { refetch: POI_리스트_검색하기, data: poiList } = useQuery(
-    QUERY_KEY.POI_LIST(searchKeyword),
-    async () => getPoiList(searchKeyword),
-    {
-      enabled: false,
-    },
-  );
+  const {
+    refetch: POI_리스트_검색하기,
+    data: poiListSearchResponse,
+    fetchStatus,
+  } = useQuery(QUERY_KEY.POI_LIST(searchKeyword), async () => getPoiList(searchKeyword), {
+    enabled: false,
+    keepPreviousData: true,
+  });
 
   const POI_리스트_검색하기_디바운스 = useDebounce(POI_리스트_검색하기, 200);
+
+  const poiList = poiListSearchResponse?.searchPoiInfo?.pois?.poi ?? [];
 
   return (
     <SearchPageWrapper>
@@ -41,19 +44,37 @@ function SearchPage({ onSelectPoi, onClose }: { onSelectPoi: (poi: Poi) => void;
         />
       </Stack.Horizontal>
       <Spacing size={11} />
-      {poiList != null ? (
-        <List>
-          {poiList.searchPoiInfo.pois.poi.map(poiItem => (
-            <List.Item
-              type="arrow"
-              key={poiItem.pkey}
-              title={poiItem.name}
-              description={poiItem.newAddressList.newAddress[0].fullAddressRoad ?? '상세 주소 없음'}
-              onClick={() => onSelectPoi(poiItem)}
-            />
-          ))}
-        </List>
-      ) : null}
+      {match({ poiList, searchKeyword, fetchStatus })
+        .when(
+          ({ searchKeyword }) => searchKeyword.length === 0,
+          () => null,
+        )
+        .with({ fetchStatus: 'fetching' }, () => (
+          <CenterFullHeight>
+            <Txt>검색하고 있어요...</Txt>
+          </CenterFullHeight>
+        ))
+        .when(
+          ({ poiList }) => poiList.length > 0,
+          () => (
+            <List>
+              {poiList.map(poiItem => (
+                <List.Item
+                  type="arrow"
+                  key={poiItem.pkey}
+                  title={poiItem.name}
+                  description={poiItem.newAddressList.newAddress[0].fullAddressRoad ?? '상세 주소 없음'}
+                  onClick={() => onSelectPoi(poiItem)}
+                />
+              ))}
+            </List>
+          ),
+        )
+        .otherwise(() => (
+          <CenterFullHeight>
+            <Txt>검색 결과가 없습니다</Txt>
+          </CenterFullHeight>
+        ))}
     </SearchPageWrapper>
   );
 }
@@ -143,6 +164,12 @@ const StyledButton = styled.button`
 
 export const MarginTxt = styled(Txt)`
   margin-left: 8px;
+`;
+
+export const CenterFullHeight = styled(FullHeight)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default PoiSearchInput;
