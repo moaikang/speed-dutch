@@ -1,5 +1,7 @@
+import assert from 'assert';
 import Script from 'next/script';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Coordinate } from '../models/coordinate';
 
 const APP_KEY = '2d1322e7d17a2bd761063469d6dd3c97';
 
@@ -10,12 +12,12 @@ declare global {
 }
 
 interface Props {
-  lat: number;
-  lon: number;
+  centerCoordinate: Coordinate;
+  selectCoordinate?: Coordinate;
 }
 
 // TODO(근우): DarkMode 적용
-function KakaoMap({ lat, lon }: Props) {
+function KakaoMap({ centerCoordinate, selectCoordinate }: Props) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const [mapInstance, setMapInstance] = useState<any | null>(null);
 
@@ -23,15 +25,15 @@ function KakaoMap({ lat, lon }: Props) {
     if (mapContainerRef.current) {
       const { kakao } = window;
       const kakaoMap = new kakao.maps.Map(mapContainerRef.current, {
-        center: new kakao.maps.LatLng(lat, lon),
+        center: new kakao.maps.LatLng(centerCoordinate.lat, centerCoordinate.lon),
         level: 3,
       });
 
       setMapInstance(kakaoMap);
     }
-  }, [lat, lon]);
+  }, [centerCoordinate.lat, centerCoordinate.lon]);
 
-  const setMarker = useCallback(() => {
+  const setCenterMarker = useCallback(() => {
     const { kakao } = window;
 
     const imageSize = new kakao.maps.Size(66, 86); // 마커이미지의 크기입니다
@@ -39,12 +41,37 @@ function KakaoMap({ lat, lon }: Props) {
     const markerImage = new kakao.maps.MarkerImage('/center-marker.svg', imageSize, imageOption);
 
     const marker = new kakao.maps.Marker({
-      position: new kakao.maps.LatLng(lat, lon),
+      position: new kakao.maps.LatLng(centerCoordinate.lat, centerCoordinate.lon),
       image: markerImage,
     });
 
     marker.setMap(mapInstance);
-  }, [lat, lon, mapInstance]);
+  }, [centerCoordinate.lat, centerCoordinate.lon, mapInstance]);
+
+  const setSelectMarker = useCallback(() => {
+    assert(selectCoordinate != null);
+    const { kakao } = window;
+
+    const imageSize = new kakao.maps.Size(36, 44); // 마커이미지의 크기입니다
+    const imageOption = { offset: new kakao.maps.Point(18, 22) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+    const markerImage = new kakao.maps.MarkerImage('/select-marker.svg', imageSize, imageOption);
+
+    const marker = new kakao.maps.Marker({
+      position: new kakao.maps.LatLng(selectCoordinate.lat, selectCoordinate.lon),
+      image: markerImage,
+    });
+
+    marker.setMap(mapInstance);
+    return marker;
+  }, [selectCoordinate, mapInstance]);
+
+  const panToMarker = useCallback(
+    (marker: any) => {
+      const moveTargetLatLon = marker.getPosition();
+      mapInstance.panTo(moveTargetLatLon);
+    },
+    [mapInstance],
+  );
 
   useEffect(() => {
     if (window.kakao == null) {
@@ -55,8 +82,27 @@ function KakaoMap({ lat, lon }: Props) {
       initMap();
     }
 
-    setMarker();
-  }, [initMap, setMarker]);
+    setCenterMarker();
+  }, [initMap, setCenterMarker, mapInstance]);
+
+  useEffect(() => {
+    if (mapInstance == null) {
+      return;
+    }
+
+    if (selectCoordinate == null) {
+      return;
+    }
+
+    const selectMarker = setSelectMarker();
+    panToMarker(selectMarker);
+
+    return () => {
+      if (selectMarker) {
+        selectMarker.setMap(null);
+      }
+    };
+  }, [mapInstance, selectCoordinate, setSelectMarker, panToMarker]);
 
   return (
     <>
@@ -70,7 +116,7 @@ function KakaoMap({ lat, lon }: Props) {
           width: '100vw',
           maxWidth: '768px',
           transform: 'translateX(-16px)',
-          height: '100vh',
+          height: '60vh',
         }}
       />
     </>

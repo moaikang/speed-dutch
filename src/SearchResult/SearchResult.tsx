@@ -15,7 +15,7 @@ import { SearchResultQueryParams } from '../models/search-result/params';
 import { FilterTab } from '../models/search-result/tab';
 import { getNearFacilities } from '../remotes/near-facilities';
 import { getAddressByLocation } from '../remotes/reverse-geocode';
-import { copyToClipboard } from '../utils/clipboard';
+import { copyToClipboard, openShareBottomSheet } from '../utils/clipboard';
 
 const NEAR_LOCATION_FILTERS: Array<{ name: string; value: FilterTab }> = [
   { name: '대중교통', value: 'public-transport' },
@@ -26,15 +26,23 @@ const NEAR_LOCATION_FILTERS: Array<{ name: string; value: FilterTab }> = [
 
 function SearchResult() {
   const router = useRouter();
-  const { lat, lon } = router.query;
+  const { lat, lon, selectLat, selectLon } = router.query;
 
   if (lat == null || lon == null) {
     return <div>엥</div>;
   }
 
+  const selectCoord =
+    selectLat != null && selectLon != null
+      ? {
+          lat: Number(selectLat),
+          lon: Number(selectLon),
+        }
+      : undefined;
+
   return (
     <>
-      <KakaoMap lat={Number(lat)} lon={Number(lon)} />
+      <KakaoMap centerCoordinate={{ lat: Number(lat), lon: Number(lon) }} selectCoordinate={selectCoord} />
       <SSRSuspense fallback={null}>
         <Result />
       </SSRSuspense>
@@ -57,6 +65,17 @@ function Result() {
 
   const handleItemSelect = (item: Poi | null) => {
     setSelectedItem(item);
+    if (item) {
+      router.push(
+        Route.검색결과({
+          ...router.query,
+          lat: Number(lat),
+          lon: Number(lon),
+          selectLat: Number(item.frontLat),
+          selectLon: Number(item.frontLon),
+        }),
+      );
+    }
   };
 
   return tab == null ? (
@@ -89,8 +108,12 @@ function Result() {
       }
       disabled={selectedItem == null}
       onClick={async () => {
-        await copyToClipboard(window.location.href);
-        window.alert('클립보드에 링크를 복사했어요');
+        try {
+          await openShareBottomSheet({ title: '더치 | 더 편리한 위치찾기' });
+        } catch (err) {
+          await copyToClipboard(window.location.href);
+          window.alert('클립보드에 링크를 복사했어요');
+        }
       }}
     >
       친구에게 공유
